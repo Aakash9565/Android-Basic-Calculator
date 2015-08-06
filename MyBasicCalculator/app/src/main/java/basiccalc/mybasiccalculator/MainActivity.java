@@ -11,37 +11,43 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
     private Button btnSubmit;
-    private TextView tvResult;
-    private EditText etfirst,etsecond,etamount;
+	private TextView tvResult;
+	private EditText etfirst, etsecond, etamount;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		tvResult = (TextView) findViewById(R.id.tvResult);
+		etfirst = (EditText) findViewById(R.id.etFirst);
+		etsecond = (EditText) findViewById(R.id.etSecond);
+		etamount = (EditText) findViewById(R.id.etAmount);
+		btnSubmit.setOnClickListener(this);
+	}
 
-    private void init(){
-        btnSubmit = (Button) findViewById(R.id.btnSubmit);
-        tvResult = (TextView)findViewById(R.id.tvResult);
-        etfirst = (EditText)findViewById(R.id.etFirst);
-        etsecond = (EditText)findViewById(R.id.etSecond);
-        etsecond = (EditText)findViewById(R.id.etSecond);
-        btnSubmit.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View view){
-        String num1 = etfirst.getText().toString();
-        String num2 = etsecond.getText().toString();
-        String amount = etamount.getText().toString();
-        switch(view.getId()){
-            case R.id.btnSubmit:
-                int divide =  (Integer.parseInt(num2) / Integer.parseInt(num1)) +1;
-                int multiply = divide * Integer.parseInt(amount);
-                tvResult.setText(String.valueOf(multiply));
-                break;
-        }
-    }
-
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.btnSubmit:
+			
+			if(etfirst.getText().toString().length()==0){
+				Toast.makeText(getBaseContext(), "First edittext empty", Toast.LENGTH_LONG).show();
+				}
+			else if(etsecond.getText().toString().length()==0){
+				Toast.makeText(getBaseContext(), "Second edittext empty", Toast.LENGTH_LONG).show();
+				}
+			else if(etamount.getText().toString().length()==0){
+				Toast.makeText(getBaseContext(), "Amount edittext empty", Toast.LENGTH_LONG).show();
+				}
+			else{
+			int divide = (Integer.parseInt(etsecond.getText().toString()) / Integer.parseInt(etfirst.getText().toString())) + 1;
+			int multiply = divide * Integer.parseInt(etamount.getText().toString());
+			tvResult.setText(String.valueOf(multiply));
+			}
+			break;
+		}
+	}
 
 }
